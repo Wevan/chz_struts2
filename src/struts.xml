@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.action.extension " value="messageResource"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <package name="normal" namespace="/normal" extends="struts-default">
+
+        <action name="login" class="action.ChzLoginAction" method="execute">
+            <result name="success" type="redirectAction">getbook</result>
+            <result name="login">/index.jsp</result>
+            <result name="error">/fail.jsp</result>
+            <result name="input">/index.jsp</result>
+        </action>
+
+
+        <action name="getbook" class="action.ChzBookAction">
+            <result name="success">/show.jsp</result>
+            <result name="login">/index.jsp</result>
+        </action>
+
+
+    </package>
+
+    <package name="deal" namespace="/" extends="struts-default">
+        <action name="do" class="action.ChzDoAction" method="execute">
+            <result name="success">/show.jsp</result>
+            <result name="login">/chzadmin.jsp</result>
+        </action>
+    </package>
+
+    <package name="admin" namespace="/admin" extends="struts-default">
+        <action name="login" class="action.ChzAdminLoginAction">
+            <result name="success">/chzadmin.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="*_*" class="action.{1}Action" method="{2}">
+            <result type="redirect">/{1}/{1}{2}.jsp</result>
+        </action>
+        <action name="ChzBook*" class="action.ChzBookAction" method="{1}">
+            <result type="redirect">/ChzBook/ChzBook_add.jsp</result>
+        </action>
+        <action name="getbook" class="action.ChzBookAction">
+            <result name="success">/chzadmin.jsp</result>
+            <result name="login">/index.jsp</result>
+        </action>
+
+    </package>
+
+</struts>
